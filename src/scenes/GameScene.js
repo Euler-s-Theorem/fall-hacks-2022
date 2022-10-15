@@ -10,6 +10,8 @@ export default class GameScene extends Phaser.Scene {
     
 
     create() {
+
+
         this.keys = {
             p: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P),  // Pause the game.
             e: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),  // Pause the game.

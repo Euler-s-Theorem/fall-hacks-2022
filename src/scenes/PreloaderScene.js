@@ -11,7 +11,7 @@ export default class PreloaderScene extends Phaser.Scene {
         // this.load.spritesheet('playerGreen', 'assets/playerGreen.png', 24, 24, 24);
         // this.load.spritesheet('playerRed', 'assets/playerRed.png', {frameWidth: 24, frameHeight: 24});
         // this.load.spritesheet('playerYellow', 'assets/playerYellow.png', {frameWidth: 24, frameHeight: 24});
-        this.load.spritesheet('door', 'bamboo-doorv3.png',{ frameWidth: 68, frameHeight: 100 });
+        this.load.spritesheet('door', 'assets/bamboo-doorv3.png',{ frameWidth: 68, frameHeight: 100 });
     }
 
     create() {
