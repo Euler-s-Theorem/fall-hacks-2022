@@ -1,3 +1,4 @@
+import { FILESIZE } from '../constants/fileSize.js';
 import { SCENE_KEYS } from '../constants/scenes.js';
 var door;
 import Player from '../sprites/Player.js';
@@ -82,7 +83,10 @@ export default class GameScene extends Phaser.Scene {
 
     createPlatforms() {
         this.platforms.create(400, 568, 'platform').setScale(2).refreshBody();
-        this.platforms.create(400, 400, 'tiles', 0);
+        // for(let i = 0; i < 20; i++) {
+        //     this.platforms.create(64*i, FILESIZE.y, 'tiles', 0);
+        // }
+        this.platforms.create(0, FILESIZE.y, 'tiles', 0);
     }
 
     gameOver() {
