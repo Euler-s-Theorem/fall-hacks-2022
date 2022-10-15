@@ -11,6 +11,7 @@ export default class PreloaderScene extends Phaser.Scene {
         // this.load.spritesheet('playerGreen', 'assets/playerGreen.png', 24, 24, 24);
         // this.load.spritesheet('playerRed', 'assets/playerRed.png', {frameWidth: 24, frameHeight: 24});
         // this.load.spritesheet('playerYellow', 'assets/playerYellow.png', {frameWidth: 24, frameHeight: 24});
+        this.load.spritesheet('door', 'bamboo-doorv3.png',{ frameWidth: 68, frameHeight: 100 });
     }
 
     create() {
@@ -22,12 +23,35 @@ export default class PreloaderScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'right',
+            key: 'walk',
             frames: this.anims.generateFrameNumbers('playerGreen', {start: 4, end: 9}),
             frameRate: 10,
             repeat: -1
         });
 
         this.scene.start(SCENE_KEYS.title);
+        this.anims.create({
+            key: 'closed',
+            frames: [ { key: 'door', frame: 0 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'opening',
+            frames: this.anims.generateFrameNumbers('door', { start: 0, end: 6 }),
+            frameRate: 10,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'open',
+            frames: [ { key: 'door', frame: 6 } ],
+            frameRate: 20
+        });
+        this.anims.create({
+            key: 'closing',
+            frames: this.anims.generateFrameNumbers('door', { start: 6, end: 0 }),
+            frameRate: 10,
+            repeat: -1
+        });
     }
 };
