@@ -51,6 +51,20 @@ export default class GameScene extends Phaser.Scene {
             texture: 'playerGreen',
             frame: 0
         });
+
+        //timer
+        this.timer = this.time.addEvent({
+            delay: 1000 * 60,
+            callback: this.gameOver,
+            args: [],
+            callbackScope: this,
+        });
+
+        this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
+
+    }
+    gameOver() {
+        console.log("game over");
     }
 
     update() {

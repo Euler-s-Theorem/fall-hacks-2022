@@ -23,13 +23,12 @@ export default class PreloaderScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'right',
+            key: 'walk',
             frames: this.anims.generateFrameNumbers('playerGreen', {start: 4, end: 9}),
             frameRate: 10,
             repeat: -1
         });
 
-        this.scene.start(SCENE_KEYS.title);
         this.anims.create({
             key: 'closed',
             frames: [ { key: 'door', frame: 0 } ],
@@ -42,16 +41,20 @@ export default class PreloaderScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         });
+
         this.anims.create({
             key: 'open',
             frames: [ { key: 'door', frame: 6 } ],
             frameRate: 20
         });
+
         this.anims.create({
             key: 'closing',
             frames: this.anims.generateFrameNumbers('door', { start: 6, end: 0 }),
             frameRate: 10,
             repeat: -1
         });
+
+        this.scene.start(SCENE_KEYS.title);
     }
 };

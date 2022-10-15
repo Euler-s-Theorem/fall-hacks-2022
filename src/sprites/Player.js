@@ -32,11 +32,13 @@ export default class Player extends Phaser.GameObjects.Sprite {
         if (input.left.isDown) {
             // Move left.
             this.body.setAccelerationX(-this.acceleration);
+            this.flipX = true;
+            this.anims.play('walk', true);
         } else if (input.right.isDown) {
             // Move right.
             this.body.setAccelerationX(this.acceleration);
-
-            this.anims.play('right', true);
+            this.flipX = false;
+            this.anims.play('walk', true);
         } else {
             // Stop accelerating if no left or right key is being held
             // down.
