@@ -1,14 +1,11 @@
 import { FILESIZE } from '../constants/fileSize.js';
 import { SCENE_KEYS } from '../constants/scenes.js';
-var door;
 import Player from '../sprites/Player.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
         super(SCENE_KEYS.game);
     }
-
-
 
     create() {
         this.keys = {
@@ -46,10 +43,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-
-
-
-        door = this.physics.add.staticSprite(100, 450, 'door');
+        this.button = this.physics.add.staticSprite(400,450, 'button');
+        this.door = this.physics.add.staticSprite(100, 450, 'door');
         //player = this.physics.add.sprite(100, 450, 'dude');
 
         this.player = new Player({
@@ -74,6 +69,8 @@ export default class GameScene extends Phaser.Scene {
         this.platforms = this.physics.add.staticGroup();
         this.physics.add.collider(this.player, this.platforms);
         this.createPlatforms();
+
+        this.dynamicWorldOjects = this.physics.add.group();
         
         // If paused or not.
         this.paused = false;
@@ -89,6 +86,12 @@ export default class GameScene extends Phaser.Scene {
         this.platforms.create(0, FILESIZE.y, 'tiles', 0);
     }
 
+    pauseGame() {
+    }
+
+    unpauseGame() {
+    }
+
     gameOver() {
         console.log("game over");
     }
@@ -96,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
     update() {
         // Get which keys are pressed and just pressed.
         this.currentInput = this.getActiveKeys();
-        door.anims.play('closing', true);
+        this.door.anims.play('closing', true);
         this.player.update(this.currentInput);
     }
 

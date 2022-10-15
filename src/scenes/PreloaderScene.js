@@ -16,6 +16,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('sky', 'assets/sky.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.spritesheet('tiles', 'assets/tiles.png', { frameWidth: 64, frameHeight: 64})
+        this.load.spritesheet('button', 'assets/Button.png', {frameWidth: 16, frameHeight:12});
     }
 
     create() {
@@ -99,6 +100,18 @@ export default class PreloaderScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('door', { start: 6, end: 0 }),
             frameRate: 10,
             repeat: -1
+        });
+
+        this.anims.create({
+            key: 'buttonDown',
+            frames: [ { key: 'button', frame: 0 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'buttonUp',
+            frames: [ { key: 'button', frame: 1 } ],
+            frameRate: 20
         });
 
         this.scene.start(SCENE_KEYS.title);
