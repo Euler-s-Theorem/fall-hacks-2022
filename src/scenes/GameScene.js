@@ -61,14 +61,14 @@ export default class GameScene extends Phaser.Scene {
             callbackScope: this,
         });
 
+        // Platforms
         this.platforms = this.physics.add.staticGroup();
-
-        this.createPlatforms();
-
-        this.paused = false;
-
         this.physics.add.collider(this.player, this.platforms);
-
+        this.createPlatforms();
+        
+        // If paused or not.
+        this.paused = false;
+        
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
     }
 
