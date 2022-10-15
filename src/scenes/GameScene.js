@@ -1,4 +1,5 @@
 import { SCENE_KEYS } from '../constants/scenes.js';
+import Player from '../sprites/Player.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
@@ -30,15 +31,23 @@ export default class GameScene extends Phaser.Scene {
 
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
+
+        this.player = new Player({
+            scene: this,
+            position: {
+                x: 200,
+                y: 200
+            },
+            texture: 'playerGreen',
+            frame: 0
+        });
     }
 
     update() {
         // Get which keys are pressed and just pressed.
         this.currentInput = this.getActiveKeys();
 
-        if (this.currentInput.up.justDown) {
-            console.log("You pressed an up key!");
-        }
+        this.player.update(this.currentInput);
     }
 
     isActive(keys, inputType) {

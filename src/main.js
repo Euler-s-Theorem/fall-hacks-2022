@@ -24,10 +24,10 @@ const game = new Game();
 
 // Resize the game to fit the parent container when the window gets
 // resized.
-window.addEventListener('resize', () => {
-    let rect = game.scale.parent.getBoundingClientRect();
-    game.scale.resize(rect.width, rect.height);
-});
+// window.addEventListener('resize', () => {
+//     let rect = game.scale.parent.getBoundingClientRect();
+//     game.scale.resize(rect.width, rect.height);
+// });
 
 // The F key can be used to toggle fullscreen.
 window.addEventListener('keypress', (key) => {
