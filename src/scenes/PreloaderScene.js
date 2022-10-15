@@ -100,6 +100,18 @@ export default class PreloaderScene extends Phaser.Scene {
             repeat: -1
         });
 
+        this.anims.create({
+            key: 'buttonDown',
+            frames: [ { key: 'button', frame: 0 } ],
+            frameRate: 20
+        });
+
+        this.anims.create({
+            key: 'buttonUp',
+            frames: [ { key: 'button', frame: 1 } ],
+            frameRate: 20
+        });
+
         this.scene.start(SCENE_KEYS.title);
     }
 };
