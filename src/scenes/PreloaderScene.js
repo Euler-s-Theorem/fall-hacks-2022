@@ -23,7 +23,7 @@ export default class PreloaderScene extends Phaser.Scene {
         });
 
         this.anims.create({
-            key: 'right',
+            key: 'walk',
             frames: this.anims.generateFrameNumbers('playerGreen', {start: 4, end: 9}),
             frameRate: 10,
             repeat: -1
