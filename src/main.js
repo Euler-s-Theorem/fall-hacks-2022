@@ -33,10 +33,8 @@ window.addEventListener('resize', () => {
 window.addEventListener('keypress', (key) => {
     if (key.code === 'KeyF') {
         if (game.scale.isFullscreen) {
-            game.registry.sounds.minimize.play();
             game.scale.stopFullscreen();
         } else {
-            game.registry.sounds.maximize.play();
             game.scale.startFullscreen();
         }
     }
