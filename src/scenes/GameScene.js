@@ -1,6 +1,4 @@
 import { SCENE_KEYS } from '../constants/scenes.js';
-var door;
-var button;
 import Player from '../sprites/Player.js';
 
 export default class GameScene extends Phaser.Scene {
@@ -8,10 +6,7 @@ export default class GameScene extends Phaser.Scene {
         super(SCENE_KEYS.game);
     }
 
-    
-
     create() {
-
         this.keys = {
             p: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P),  // Pause the game.
             e: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),  // Pause the game.
@@ -35,7 +30,11 @@ export default class GameScene extends Phaser.Scene {
             left: [this.keys.cursors.left, this.keys.wasd.left],
             down: [this.keys.cursors.down, this.keys.wasd.down],
             right: [this.keys.cursors.right, this.keys.wasd.right],
-            pause: [this.keys.p, this.keys.e]
+            pause: [this.keys.p, this.keys.e],
+            one: [this.keys.one],
+            two: [this.keys.two],
+            three: [this.keys.three],
+            four: [this.keys.four],
         }
 
         // The types of key input the game needs.
@@ -43,11 +42,9 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-
-
-
-        door = this.physics.add.staticSprite(100, 450, 'door');
-        button = this.physics.add.staticSprite(400,450, 'button');
+        this.button = this.physics.add.staticSprite(400,450, 'button');
+        this.door = this.physics.add.staticSprite(100, 450, 'door');
+        //player = this.physics.add.sprite(100, 450, 'dude');
 
         this.player = new Player({
             scene: this,
@@ -71,12 +68,23 @@ export default class GameScene extends Phaser.Scene {
         this.platforms = this.physics.add.staticGroup();
         this.physics.add.collider(this.player, this.platforms);
         this.createPlatforms();
+
+        this.dynamicWorldOjects = this.physics.add.group();
         
         // If paused or not.
         this.paused = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
+    }
 
+    createPlatforms() {
+        this.platforms.create(400, 568, 'platform').setScale(2).refreshBody();
+    }
+
+    pauseGame() {
+    }
+
+    unpauseGame() {
     }
 
     gameOver() {
@@ -86,9 +94,8 @@ export default class GameScene extends Phaser.Scene {
     update() {
         // Get which keys are pressed and just pressed.
         this.currentInput = this.getActiveKeys();
-        door.anims.play('closing', true);
+        this.door.anims.play('closing', true);
         this.player.update(this.currentInput);
-        button.anims.play('buttonUp', true);
     }
 
     isActive(keys, inputType) {
