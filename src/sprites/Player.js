@@ -26,6 +26,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.setSize(15, 17);
 
         this.setScale(4);
+
+        this.colour = "Green";
     }
 
     update(input) {
@@ -33,23 +35,33 @@ export default class Player extends Phaser.GameObjects.Sprite {
             // Move left.
             this.body.setAccelerationX(-this.acceleration);
             this.flipX = true;
-            this.anims.play('walk', true);
+            this.anims.play('walk' + this.colour, true);
         } else if (input.right.isDown) {
             // Move right.
             this.body.setAccelerationX(this.acceleration);
             this.flipX = false;
-            this.anims.play('walk', true);
+            this.anims.play('walk' + this.colour, true);
         } else {
             // Stop accelerating if no left or right key is being held
             // down.
             this.body.setAcceleration(0);
 
-            this.anims.play('idle', true);
+            this.anims.play('idle' + this.colour, true);
         }
 
         if (input.up.isDown && this.body.onFloor()) {
             // Jump off the ground.
             this.body.setVelocityY(-this.jumpVelocity);
+        }
+
+        if (input.one.justDown) {
+            this.colour = "Green";
+        } else if (input.two.justDown) {
+            this.colour = "Blue";
+        } else if (input.three.justDown) {
+            this.colour = "Red";
+        } else if (input.four.justDown) {
+            this.colour = "Yellow";
         }
 
         if (input.pause.justDown) {
