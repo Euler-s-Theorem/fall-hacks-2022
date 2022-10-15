@@ -7,7 +7,7 @@ export default class GameScene extends Phaser.Scene {
         super(SCENE_KEYS.game);
     }
 
-    
+
 
     create() {
         this.keys = {
@@ -43,8 +43,12 @@ export default class GameScene extends Phaser.Scene {
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
 
+        this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        door = this.physics.add.staticSprite(100,450, 'door');
+
+
+
+        door = this.physics.add.staticSprite(100, 450, 'door');
         //player = this.physics.add.sprite(100, 450, 'dude');
 
         this.player = new Player({

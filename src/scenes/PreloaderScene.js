@@ -6,12 +6,14 @@ export default class PreloaderScene extends Phaser.Scene {
     }
 
     preload() {
+        // Players
         this.load.spritesheet('playerBlue', 'assets/playerBlue.png', {frameWidth: 24, frameHeight: 24});
         this.load.spritesheet('playerGreen', 'assets/playerGreen.png', {frameWidth: 24, frameHeight: 24});
         this.load.spritesheet('playerRed', 'assets/playerRed.png', {frameWidth: 24, frameHeight: 24});
         this.load.spritesheet('playerYellow', 'assets/playerYellow.png', {frameWidth: 24, frameHeight: 24});
 
-        this.load.spritesheet('door', 'assets/bamboo-doorv3.png',{ frameWidth: 68, frameHeight: 100 });
+        this.load.spritesheet('door', 'assets/bamboo-doorv3.png', { frameWidth: 68, frameHeight: 100 });
+        this.load.image('sky', 'assets/sky.png');
         this.load.image('platform', 'assets/platform.png');
     }
 
@@ -74,7 +76,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'closed',
-            frames: [ { key: 'door', frame: 0 } ],
+            frames: [{ key: 'door', frame: 0 }],
             frameRate: 20
         });
 
@@ -87,7 +89,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'open',
-            frames: [ { key: 'door', frame: 6 } ],
+            frames: [{ key: 'door', frame: 6 }],
             frameRate: 20
         });
 
