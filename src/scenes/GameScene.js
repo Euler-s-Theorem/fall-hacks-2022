@@ -40,7 +40,6 @@ export default class GameScene extends Phaser.Scene {
         door = this.physics.add.staticSprite(100,450, 'door');
         //player = this.physics.add.sprite(100, 450, 'dude');
 
-
         this.player = new Player({
             scene: this,
             position: {
@@ -59,9 +58,21 @@ export default class GameScene extends Phaser.Scene {
             callbackScope: this,
         });
 
+        // Platforms
+        this.platforms = this.physics.add.staticGroup();
+        this.physics.add.collider(this.player, this.platforms);
+        this.createPlatforms();
+        
+        // If paused or not.
+        this.paused = false;
+        
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
-
     }
+
+    createPlatforms() {
+        this.platforms.create(400, 568, 'platform').setScale(2).refreshBody();
+    }
+
     gameOver() {
         console.log("game over");
     }

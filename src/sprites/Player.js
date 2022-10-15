@@ -51,5 +51,9 @@ export default class Player extends Phaser.GameObjects.Sprite {
             // Jump off the ground.
             this.body.setVelocityY(-this.jumpVelocity);
         }
+
+        if (input.pause.justDown) {
+            this.scene.paused = !this.scene.paused;
+        }
     }
 }
