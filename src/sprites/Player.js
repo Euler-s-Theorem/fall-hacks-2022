@@ -66,6 +66,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
         if (input.pause.justDown) {
             this.scene.paused = !this.scene.paused;
+            if (this.scene.paused) {
+                this.scene.pauseGame();
+            } else {
+                this.scene.unpauseGame();
+            }
         }
     }
 }
