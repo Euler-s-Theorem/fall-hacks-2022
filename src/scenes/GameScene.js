@@ -7,12 +7,16 @@ export default class GameScene extends Phaser.Scene {
         super(SCENE_KEYS.game);
     }
 
-    
+
 
     create() {
         this.keys = {
             p: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P),  // Pause the game.
             e: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E),  // Pause the game.
+            one: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE),  // For switching player colour.
+            two: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO),  // For switching player colour.
+            three: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE),  // For switching player colour.
+            four: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR),  // For switching player colour.
         }
         // Create the keys for player movement.
         this.keys.cursors = this.input.keyboard.createCursorKeys();
@@ -29,14 +33,22 @@ export default class GameScene extends Phaser.Scene {
             left: [this.keys.cursors.left, this.keys.wasd.left],
             down: [this.keys.cursors.down, this.keys.wasd.down],
             right: [this.keys.cursors.right, this.keys.wasd.right],
-            pause: [this.keys.p, this.keys.e]
+            pause: [this.keys.p, this.keys.e],
+            one: [this.keys.one],
+            two: [this.keys.two],
+            three: [this.keys.three],
+            four: [this.keys.four],
         }
 
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
 
+        this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        door = this.physics.add.staticSprite(100,450, 'door');
+
+
+
+        door = this.physics.add.staticSprite(100, 450, 'door');
         //player = this.physics.add.sprite(100, 450, 'dude');
 
         this.player = new Player({
@@ -57,13 +69,13 @@ export default class GameScene extends Phaser.Scene {
             callbackScope: this,
         });
 
+        // Platforms
         this.platforms = this.physics.add.staticGroup();
-
-        this.createPlatforms();
-
-        this.paused = false;
-
         this.physics.add.collider(this.player, this.platforms);
+        this.createPlatforms();
+        
+        // If paused or not.
+        this.paused = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
     }
