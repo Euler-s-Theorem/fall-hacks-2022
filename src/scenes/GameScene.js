@@ -1,9 +1,11 @@
 import { SCENE_KEYS } from '../constants/scenes.js';
-
+var door;
 export default class GameScene extends Phaser.Scene {
     constructor() {
         super(SCENE_KEYS.game);
     }
+
+    
 
     create() {
         this.keys = {
@@ -30,6 +32,12 @@ export default class GameScene extends Phaser.Scene {
 
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
+
+
+        door = this.physics.add.staticSprite(100,450, 'door');
+        //player = this.physics.add.sprite(100, 450, 'dude');
+
+
     }
 
     update() {
@@ -39,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
         if (this.currentInput.up.justDown) {
             console.log("You pressed an up key!");
         }
+        door.anims.play('closing', true);
     }
 
     isActive(keys, inputType) {
@@ -70,4 +79,6 @@ export default class GameScene extends Phaser.Scene {
 
         return currentInput;
     }
+
+
 }
