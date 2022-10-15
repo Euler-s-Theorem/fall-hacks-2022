@@ -1,7 +1,7 @@
 export default {
     type: Phaser.AUTO,
-    width: document.getElementById('game').getBoundingClientRect().width,
-    height: document.getElementById('game').getBoundingClientRect().height,
+    width: 1200,
+    height: 700,
     physics: {
         default: 'arcade',
         arcade: {
@@ -11,6 +11,7 @@ export default {
             debug: false,
         }
     },
+    antialias: false,
     scale: {
         parent: 'game',
         autoCenter: Phaser.Scale.CENTER_BOTH

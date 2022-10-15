@@ -1,5 +1,7 @@
 import { SCENE_KEYS } from '../constants/scenes.js';
 var door;
+import Player from '../sprites/Player.js';
+
 export default class GameScene extends Phaser.Scene {
     constructor() {
         super(SCENE_KEYS.game);
@@ -38,16 +40,22 @@ export default class GameScene extends Phaser.Scene {
         //player = this.physics.add.sprite(100, 450, 'dude');
 
 
+        this.player = new Player({
+            scene: this,
+            position: {
+                x: 200,
+                y: 200
+            },
+            texture: 'playerGreen',
+            frame: 0
+        });
     }
 
     update() {
         // Get which keys are pressed and just pressed.
         this.currentInput = this.getActiveKeys();
-
-        if (this.currentInput.up.justDown) {
-            console.log("You pressed an up key!");
-        }
         door.anims.play('closing', true);
+        this.player.update(this.currentInput);
     }
 
     isActive(keys, inputType) {

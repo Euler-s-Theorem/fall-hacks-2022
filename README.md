@@ -10,3 +10,7 @@ Our project can be found [here on this website link](https://github.com/Euler-s-
 - Oscar Lautsch
 - Michael Plunkett
 - Ewan Brinkman
+
+## Assets Credits
+
+- Player images: https://arks.itch.io/dino-characters
