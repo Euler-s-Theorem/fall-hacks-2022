@@ -18,6 +18,9 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('ball', 'assets/Ball.png');
         this.load.spritesheet('button', 'assets/Button.png', { frameWidth: 16, frameHeight: 6 });
         this.load.spritesheet('tiles', 'assets/tiles.png', { frameWidth: 64, frameHeight: 64 });
+
+        this.load.image('doorOpen', 'assets/door/doorOpen.png');
+        this.load.image('doorClosed', 'assets/door/doorClosed.png');
     }
 
     create() {
