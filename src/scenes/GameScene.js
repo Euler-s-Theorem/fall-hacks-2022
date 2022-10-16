@@ -80,10 +80,9 @@ export default class GameScene extends Phaser.Scene {
 
     createPlatforms() {
         this.platforms.create(400, 568, 'platform').setScale(2).refreshBody();
-        // for(let i = 0; i < 20; i++) {
-        //     this.platforms.create(64*i, FILESIZE.y, 'tiles', 0);
-        // }
-        this.platforms.create(0, FILESIZE.y, 'tiles', 0);
+        for(let i = 0; i < 20; i++) {
+            this.platforms.create(64*i+32, FILESIZE.y-32, 'tiles', 0);
+        }
     }
 
     pauseGame() {

@@ -1,4 +1,4 @@
-import { FILESIZE } from "./constants/fileSize"
+import { FILESIZE } from "./constants/fileSize.js"
 
 export default {
     type: Phaser.AUTO,
