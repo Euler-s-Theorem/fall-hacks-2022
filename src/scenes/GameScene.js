@@ -38,7 +38,7 @@ export default class GameScene extends Phaser.Scene {
             four: [this.keys.four],
         }
 
-        this.worldWidth = FILESIZE.x * 3 / 2;
+        this.worldWidth = FILESIZE.x;
         this.worldHeight = FILESIZE.y;
 
         this.physics.world.bounds.x = 0;
@@ -51,6 +51,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
         this.add.image(FILESIZE.x, 0, 'sky').setOrigin(0, 0).setScale(2);
+        this.sky=this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
         this.doorLocation = {
             x: FILESIZE.x * 3 / 4,
@@ -99,11 +100,23 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.ball, this.platforms);
         this.ball.setBounce(1).setScale(2);
         this.ball.setCollideWorldBounds(true);
-        this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
+        this.ball.setVelocity(Phaser.Math.Between(300, 500), Phaser.Math.Between(300, 500));
 
         //collider for ball and player
         //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
-        this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
+        // this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
+        this.doorLocation = {
+            x: FILESIZE.x * 3 / 4,
+            y: 3 / 5 * FILESIZE.y
+        };
+
+        this.doors = this.physics.add.staticGroup();
+        this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
+        this.physics.add.collider(this.player, this.ball, this.gameOver, null, this);
+
+        //collision for player and door
+        this.physics.add.overlap(this.player, this.realDoor, this.playerHitsDoor, null, this);
+
 
         // If paused or not.
         this.paused = false;
@@ -122,13 +135,23 @@ export default class GameScene extends Phaser.Scene {
         return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
     }
 
-    playerHitsBall() {
+
+
+    playerHitsDoor() {
+        if (this.doorOpen) {
+            //this.player.disableBody(true, true);
+            this.gameWin();
+        }
+    }
+
+
+    gameWin() {
         this.physics.pause();
+        this.pauseGame();
+        this.player.setTint('0x00ff00');
 
-        this.player.setTint(0xff0000);
-
-        //this.player.anims.play('turn');
-        this.gameOver();
+        this.gameWinText = this.add.text(300, 300, "GOOD GAME OVER!!!", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
+        console.log("game over");
     }
 
     pressButton() {
@@ -167,33 +190,69 @@ export default class GameScene extends Phaser.Scene {
 
     pauseGame() {
         this.paused = true;
+        // Stop Ball
+        this.storeBallVelX = this.ball.body.velocity.x;
+        this.storeBallVelY = this.ball.body.velocity.y;
+        this.ball.body.allowGravity = false;
+        this.ball.setVelocity(0, 0)
+
         // Overlay
     }
 
     unpauseGame() {
         this.paused = false;
+        // Resume Ball
+        this.ball.body.allowGravity = true;
+        this.ball.setVelocity(this.storeBallVelX, this.storeBallVelY)
+
         // Remove overlay
     }
 
     gameOver() {
         this.text = this.add.text(400, 300, "Bad Game Over ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
-        console.log("game over");
+        this.physics.pause();
+        this.pauseGame();
+        this.player.setTint(0xff0000);
+
+        // this.text = this.add.text(400, 300, "GAME OVER!!! ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
+        // console.log("game over");
     }
 
     update() {
         // Get which keys are pressed and just pressed.
-        if (!this.paused) {
-            if (!this.checkOverlap(this.player, this.button)) {
+        if(!this.paused) {
+            this.untintEverything();
+            if(!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
                 // this.door.anims.play('closing', true);
                 this.button.anims.play('buttonUp', true);
             }
         } else {
-            
+            this.tintEverything();
+            this.text = this.add.text(FILESIZE.x / 2 - 130, 100, "Paused? ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
+
         }
         this.currentInput = this.getActiveKeys();
         this.player.update(this.currentInput);
         this.playDoor();
+    }
+
+    tintEverything()
+    {
+        this.sky.setTint(0x808080);
+        this.button.setTint(0x808080);
+        this.ball.setTint(0x808080);
+        this.realDoor.setTint(0x808080);
+        this.platforms.setTint(0x808080);
+    }
+
+    untintEverything()
+    {
+        this.sky.setTint(0xffffff);
+        this.button.setTint(0xffffff);
+        this.ball.setTint(0xffffff);
+        this.realDoor.setTint(0xffffff);
+        this.platforms.setTint(0xffffff);
     }
 
     playDoor(){
@@ -202,8 +261,7 @@ export default class GameScene extends Phaser.Scene {
             // this.door.anims.play('open', true);
             this.realDoor.setTexture('doorOpen');
         }
-        else
-        {
+        else {
             // this.door.anims.play('closed', true);
             this.realDoor.setTexture('doorClosed');
         }
