@@ -43,7 +43,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        this.button = this.physics.add.staticSprite(400, 450, 'button', 0);
+        this.button = this.physics.add.staticSprite(FILESIZE.x / 2, 3 / 5 * FILESIZE.y + 64, 'button', 0);
         this.button.setScale(4);
         this.door = this.physics.add.staticSprite(100, 450, 'door');
 
@@ -105,6 +105,16 @@ export default class GameScene extends Phaser.Scene {
     createPlatforms() {
         for (let i = 0; i < 20; i++) {
             this.platforms.create(64 * i + 32, FILESIZE.y - 32, 'tiles', 0);
+        }
+        this.createNPlatforms(3, FILESIZE.x / 2, 3 / 4 * FILESIZE.y);
+
+        this.createNPlatforms(2, FILESIZE.x * 3 / 4, 3 / 5 * FILESIZE.y);  // Button platform
+        this.createNPlatforms(2, FILESIZE.x * 1 / 4, 3 / 5 * FILESIZE.y);
+    }
+
+    createNPlatforms(n, centerX, centerY) {
+        for (let i = -1 * (n / 2); i < n / 2; i++) {
+            this.platforms.create(centerX + i * 64 + 32, centerY, 'tiles', 0);
         }
     }
 
