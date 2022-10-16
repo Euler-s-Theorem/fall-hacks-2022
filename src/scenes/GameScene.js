@@ -43,11 +43,11 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-<<<<<<< HEAD
-        this.button = this.physics.add.staticSprite(400, 630, 'button', 0);
-=======
+
+
+
         this.button = this.physics.add.staticSprite(FILESIZE.x / 2, 3 / 5 * FILESIZE.y + 64, 'button', 0);
->>>>>>> 4354f9aa5b3852238f4a17fa4d3893fad77b8ffb
+
         this.button.setScale(4);
         this.door = this.physics.add.staticSprite(100, 450, 'door');
 
