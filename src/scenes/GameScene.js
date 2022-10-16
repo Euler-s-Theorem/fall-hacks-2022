@@ -86,7 +86,7 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.ball, this.platforms);
         this.ball.setBounce(1).setScale(2);
         this.ball.setCollideWorldBounds(true);
-        this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
+        this.ball.setVelocity(Phaser.Math.Between(300, 500), Phaser.Math.Between(300, 500));
 
         //collider for ball and player
         //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
@@ -129,7 +129,7 @@ export default class GameScene extends Phaser.Scene {
     gameWin() {
         this.physics.pause();
         this.pauseGame();
-        this.player.setTint('lightgreen');
+        this.player.setTint('0x00ff00');
 
         this.gameWinText = this.add.text(300, 300, "GOOD GAME OVER!!!", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
         console.log("game over");
@@ -162,11 +162,21 @@ export default class GameScene extends Phaser.Scene {
 
     pauseGame() {
         this.paused = true;
+        // Stop Ball
+        this.storeBallVelX = this.ball.body.velocity.x;
+        this.storeBallVelY = this.ball.body.velocity.y;
+        this.ball.body.allowGravity = false;
+        this.ball.setVelocity(0, 0)
+
         // Overlay
     }
 
     unpauseGame() {
         this.paused = false;
+        // Resume Ball
+        this.ball.body.allowGravity = true;
+        this.ball.setVelocity(this.storeBallVelX, this.storeBallVelY)
+
         // Remove overlay
     }
 
