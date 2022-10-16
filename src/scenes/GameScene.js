@@ -43,7 +43,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        this.button = this.physics.add.staticSprite(400, 450, 'button', 0);
+        this.button = this.physics.add.staticSprite(400, 630, 'button', 0);
         this.button.setScale(4);
         this.door = this.physics.add.staticSprite(100, 450, 'door');
 
@@ -89,6 +89,8 @@ export default class GameScene extends Phaser.Scene {
         this.doorOpen = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
+
+       
     }
 
     pressButton() {
@@ -98,6 +100,7 @@ export default class GameScene extends Phaser.Scene {
             console.log("PRESSED BUTTON");
         }
     }
+
 
     createPlatforms() {
         for(let i = 0; i < 20; i++) {
@@ -118,8 +121,19 @@ export default class GameScene extends Phaser.Scene {
     update() {
         // Get which keys are pressed and just pressed.
         this.currentInput = this.getActiveKeys();
-        this.door.anims.play('closing', true);
         this.player.update(this.currentInput);
+        this.playDoor();
+    }
+
+    playDoor(){
+        if(this.doorOpen)
+        {
+            this.door.anims.play('open', true);
+        }
+        else
+        {
+            this.door.anims.play('closed', true);
+        }
     }
 
     isActive(keys, inputType) {
