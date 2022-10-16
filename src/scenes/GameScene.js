@@ -169,6 +169,7 @@ export default class GameScene extends Phaser.Scene {
         this.ball.setVelocity(0, 0)
 
         // Overlay
+        
     }
 
     unpauseGame() {
