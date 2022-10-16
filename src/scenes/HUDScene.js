@@ -7,7 +7,6 @@ export default class GameScene extends Phaser.Scene {
 
     init(data) {
         this.gameScene = data.GameScene;
-
     }
 
     create() {
@@ -19,8 +18,5 @@ export default class GameScene extends Phaser.Scene {
 
         let remainingSeconds = this.gameScene.timer.getRemainingSeconds();
         this.text.text = 'Time Left: ' + remainingSeconds.toFixed(2);
-    }
-
-    resize() {
     }
 }

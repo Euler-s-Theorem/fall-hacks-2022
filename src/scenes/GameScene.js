@@ -89,7 +89,6 @@ export default class GameScene extends Phaser.Scene {
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
         //collider for ball and player
-<<<<<<< HEAD
         //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
         this.doorLocation = {
             x: FILESIZE.x * 3 / 4,
@@ -98,17 +97,13 @@ export default class GameScene extends Phaser.Scene {
         
         this.doors = this.physics.add.staticGroup();
         this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
-=======
         this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
->>>>>>> 5acb7a3b05be9b8a90c6df100cb53d5c98535399
 
         // If paused or not.
         this.paused = false;
         this.doorOpen = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
-
-       
     }
 
     checkOverlap(spriteA, spriteB) {
@@ -168,7 +163,7 @@ export default class GameScene extends Phaser.Scene {
         if(!this.paused) {
             if(!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
-                this.door.anims.play('closing', true);
+                // this.door.anims.play('closing', true);
                 this.button.anims.play('buttonUp', true);
             }
         } else {
@@ -182,11 +177,13 @@ export default class GameScene extends Phaser.Scene {
     playDoor(){
         if(this.doorOpen)
         {
-            this.door.anims.play('open', true);
+            // this.door.anims.play('open', true);
+            this.realDoor.setTexture('doorOpen');
         }
         else
         {
-            this.door.anims.play('closed', true);
+            // this.door.anims.play('closed', true);
+            this.realDoor.setTexture('doorClosed');
         }
     }
 
