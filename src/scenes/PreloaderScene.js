@@ -16,6 +16,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('sky', 'assets/sky.png');
         this.load.image('platform', 'assets/platform.png');
         this.load.image('ball', 'assets/Ball.png');
+        this.load.spritesheet('button', 'assets/Button.png', { frameWidth: 16, frameHeight: 6 });
     }
 
     create() {
@@ -103,13 +104,13 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.anims.create({
             key: 'buttonDown',
-            frames: [{ key: 'button', frame: 0 }],
+            frames: [{ key: 'button', frame: 1 }],
             frameRate: 20
         });
 
         this.anims.create({
             key: 'buttonUp',
-            frames: [{ key: 'button', frame: 1 }],
+            frames: [{ key: 'button', frame: 0 }],
             frameRate: 20
         });
 
