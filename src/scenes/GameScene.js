@@ -79,7 +79,7 @@ export default class GameScene extends Phaser.Scene {
         //make a ball group and then a ball 
         this.ball = this.dynamicWorldOjects.create(10, 16, 'ball');
         //made ball bounce against platforms and other surfaces
-        this.physics.add.collider(this.balls, this.platforms);
+        this.physics.add.collider(this.ball, this.platforms);
         this.ball.setBounce(1).setScale(3);
         this.ball.setCollideWorldBounds(true);
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
