@@ -43,7 +43,11 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
+
+
+
         this.button = this.physics.add.staticSprite(FILESIZE.x / 2, 3 / 5 * FILESIZE.y + 64, 'button', 0);
+
         this.button.setScale(4);
         this.door = this.physics.add.staticSprite(100, 450, 'door');
 
@@ -77,14 +81,15 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.button, this.pressButton, null, this);
 
         //make a ball group and then a ball 
-        this.ball = this.dynamicWorldOjects.create(10, 16, 'ball');
+        this.ball = this.dynamicWorldOjects.create(800, 16, 'ball');
         //made ball bounce against platforms and other surfaces
         this.physics.add.collider(this.ball, this.platforms);
-        this.ball.setBounce(1).setScale(3);
+        this.ball.setBounce(1).setScale(1);
         this.ball.setCollideWorldBounds(true);
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
         //collider for ball and player
+<<<<<<< HEAD
         //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
         this.doorLocation = {
             x: FILESIZE.x * 3 / 4,
@@ -93,13 +98,24 @@ export default class GameScene extends Phaser.Scene {
         
         this.doors = this.physics.add.staticGroup();
         this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
+=======
+        this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
+>>>>>>> 5acb7a3b05be9b8a90c6df100cb53d5c98535399
 
         // If paused or not.
         this.paused = false;
         this.doorOpen = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
+
+       
     }
+
+    checkOverlap(spriteA, spriteB) {
+	    var boundsA = spriteA.getBounds();
+	    var boundsB = spriteB.getBounds();
+	    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
+	}
 
     playerHitsBall() {
         this.physics.pause();
@@ -107,8 +123,7 @@ export default class GameScene extends Phaser.Scene {
         this.player.setTint(0xff0000);
 
         //this.player.anims.play('turn');
-
-        gameOver = true;
+        this.gameOver();
     }
 
     pressButton() {
@@ -118,6 +133,7 @@ export default class GameScene extends Phaser.Scene {
             console.log("PRESSED BUTTON");
         }
     }
+
 
     createPlatforms() {
         for (let i = 0; i < 20; i++) {
@@ -136,9 +152,11 @@ export default class GameScene extends Phaser.Scene {
     }
 
     pauseGame() {
+        this.paused = true;
     }
 
     unpauseGame() {
+        this.paused = false;
     }
 
     gameOver() {
@@ -147,9 +165,29 @@ export default class GameScene extends Phaser.Scene {
 
     update() {
         // Get which keys are pressed and just pressed.
+        if(!this.paused) {
+            if(!this.checkOverlap(this.player, this.button)) {
+                this.doorOpen = false;
+                this.door.anims.play('closing', true);
+                this.button.anims.play('buttonUp', true);
+            }
+        } else {
+
+        }
         this.currentInput = this.getActiveKeys();
-        this.door.anims.play('closing', true);
         this.player.update(this.currentInput);
+        this.playDoor();
+    }
+
+    playDoor(){
+        if(this.doorOpen)
+        {
+            this.door.anims.play('open', true);
+        }
+        else
+        {
+            this.door.anims.play('closed', true);
+        }
     }
 
     isActive(keys, inputType) {
