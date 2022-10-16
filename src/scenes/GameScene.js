@@ -100,6 +100,12 @@ export default class GameScene extends Phaser.Scene {
        
     }
 
+    checkOverlap(spriteA, spriteB) {
+	    var boundsA = spriteA.getBounds();
+	    var boundsB = spriteB.getBounds();
+	    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
+	}
+
     playerHitsBall() {
         this.physics.pause();
 
@@ -135,9 +141,11 @@ export default class GameScene extends Phaser.Scene {
     }
 
     pauseGame() {
+        this.paused = true;
     }
 
     unpauseGame() {
+        this.paused = false;
     }
 
     gameOver() {
@@ -146,6 +154,15 @@ export default class GameScene extends Phaser.Scene {
 
     update() {
         // Get which keys are pressed and just pressed.
+        if(!this.paused) {
+            if(!this.checkOverlap(this.player, this.button)) {
+                this.doorOpen = false;
+                this.door.anims.play('closing', true);
+                this.button.anims.play('buttonUp', true);
+            }
+        } else {
+
+        }
         this.currentInput = this.getActiveKeys();
         this.player.update(this.currentInput);
         this.playDoor();
