@@ -76,22 +76,32 @@ export default class GameScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, this.button, this.pressButton, null, this);
 
-        //make a ball group
-        this.balls = this.physics.add.group();
+        //make a ball group and then a ball 
+        this.ball = this.dynamicWorldOjects.create(10, 16, 'ball');
+        //made ball bounce against platforms and other surfaces
         this.physics.add.collider(this.balls, this.platforms);
-        this.ball = this.balls.create(10, 16, 'ball');
         this.ball.setBounce(1).setScale(3);
         this.ball.setCollideWorldBounds(true);
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
-
-        //collider for ball
+        //collider for ball and player
+        //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
 
         // If paused or not.
         this.paused = false;
         this.doorOpen = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
+    }
+
+    playerHitsBall() {
+        this.physics.pause();
+
+        this.player.setTint(0xff0000);
+
+        //this.player.anims.play('turn');
+
+        gameOver = true;
     }
 
     pressButton() {
