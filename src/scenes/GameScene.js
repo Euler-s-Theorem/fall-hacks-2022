@@ -106,9 +106,19 @@ export default class GameScene extends Phaser.Scene {
     }
 
     pauseGame() {
+        // Stop timer
+
+        // Stop dynamic world objects
+
+        // Overlay tint
     }
 
     unpauseGame() {
+        // Resume timer
+
+        // Resume dynamic world objects
+
+        // Remove tint
     }
 
     gameOver() {
