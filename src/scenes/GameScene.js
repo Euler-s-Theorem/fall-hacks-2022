@@ -89,18 +89,7 @@ export default class GameScene extends Phaser.Scene {
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
         //collider for ball and player
-<<<<<<< HEAD
-        //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
-        this.doorLocation = {
-            x: FILESIZE.x * 3 / 4,
-            y: 3 / 5 * FILESIZE.y
-        };
-        
-        this.doors = this.physics.add.staticGroup();
-        this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
-=======
         this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
->>>>>>> 5acb7a3b05be9b8a90c6df100cb53d5c98535399
 
         // If paused or not.
         this.paused = false;
@@ -112,17 +101,10 @@ export default class GameScene extends Phaser.Scene {
     }
 
     checkOverlap(spriteA, spriteB) {
-<<<<<<< HEAD
         var boundsA = spriteA.getBounds();
         var boundsB = spriteB.getBounds();
         return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
     }
-=======
-	    var boundsA = spriteA.getBounds();
-	    var boundsB = spriteB.getBounds();
-	    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
-	}
->>>>>>> e1fbbfaec30a3c8a86ee0f55fe1368a6d0dd7ac0
 
     playerHitsBall() {
         this.physics.pause();
