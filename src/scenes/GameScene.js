@@ -97,10 +97,10 @@ export default class GameScene extends Phaser.Scene {
 
         this.doors = this.physics.add.staticGroup();
         this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
-        this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
+        this.physics.add.collider(this.player, this.ball, this.gameOver, null, this);
 
         //collision for player and door
-        this.physics.add.collider(this.player, this.door, this.gameOver, null, this);
+        this.physics.add.collider(this.player, this.realDoor, this.playerHitsDoor, null, this);
 
 
         // If paused or not.
@@ -120,9 +120,21 @@ export default class GameScene extends Phaser.Scene {
 
     playerHitsDoor() {
         if (this.doorOpen) {
-
+            //this.player.disableBody(true, true);
+            this.gameWin();
         }
     }
+
+
+    gameWin() {
+        this.physics.pause();
+        this.pauseGame();
+        this.player.setTint('lightgreen');
+
+        this.gameWinText = this.add.text(300, 300, "GOOD GAME OVER!!!", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
+        console.log("game over");
+    }
+
     pressButton() {
         if (!this.doorOpen) {
             this.doorOpen = true;
@@ -209,8 +221,7 @@ export default class GameScene extends Phaser.Scene {
             // this.door.anims.play('open', true);
             this.realDoor.setTexture('doorOpen');
         }
-        else
-        {
+        else {
             // this.door.anims.play('closed', true);
             this.realDoor.setTexture('doorClosed');
         }
