@@ -195,8 +195,7 @@ export default class GameScene extends Phaser.Scene {
         this.storeBallVelY = this.ball.body.velocity.y;
         this.ball.body.allowGravity = false;
         this.ball.setVelocity(0, 0)
-
-        // Overlay
+        this.text = this.add.text(FILESIZE.x / 2 - 130, 100, "Paused? ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
         
     }
 
@@ -205,8 +204,7 @@ export default class GameScene extends Phaser.Scene {
         // Resume Ball
         this.ball.body.allowGravity = true;
         this.ball.setVelocity(this.storeBallVelX, this.storeBallVelY)
-
-        // Remove overlay
+        this.text.text = "";
     }
 
     gameOver() {
@@ -230,8 +228,6 @@ export default class GameScene extends Phaser.Scene {
             }
         } else {
             this.tintEverything();
-            this.text = this.add.text(FILESIZE.x / 2 - 130, 100, "Paused? ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
-
         }
         this.currentInput = this.getActiveKeys();
         this.player.update(this.currentInput);
