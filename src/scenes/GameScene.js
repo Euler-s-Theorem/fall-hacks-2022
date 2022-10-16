@@ -41,7 +41,7 @@ export default class GameScene extends Phaser.Scene {
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
 
-        this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
+        this.sky=this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
 
 
@@ -155,17 +155,37 @@ export default class GameScene extends Phaser.Scene {
     update() {
         // Get which keys are pressed and just pressed.
         if(!this.paused) {
+            this.untintEverything();
             if(!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
                 this.door.anims.play('closing', true);
                 this.button.anims.play('buttonUp', true);
             }
         } else {
+            this.tintEverything();
 
         }
         this.currentInput = this.getActiveKeys();
         this.player.update(this.currentInput);
         this.playDoor();
+    }
+
+    tintEverything()
+    {
+        this.sky.setTint(0x808080);
+        this.button.setTint(0x808080);
+        this.ball.setTint(0x808080);
+        this.door.setTint(0x808080);
+        this.platforms.setTint(0x808080);
+    }
+
+    untintEverything()
+    {
+        this.sky.setTint(0xffffff);
+        this.button.setTint(0xffffff);
+        this.ball.setTint(0xffffff);
+        this.door.setTint(0xffffff);
+        this.platforms.setTint(0xffffff);
     }
 
     playDoor(){
