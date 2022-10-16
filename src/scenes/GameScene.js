@@ -80,9 +80,9 @@ export default class GameScene extends Phaser.Scene {
         this.balls = this.physics.add.group();
         this.physics.add.collider(this.balls, this.platforms);
         this.ball = this.balls.create(10, 16, 'ball');
-        this.ball.setBounce(1);
+        this.ball.setBounce(1).setScale(3);
         this.ball.setCollideWorldBounds(true);
-        this.ball.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
 
         //collider for ball
@@ -103,8 +103,8 @@ export default class GameScene extends Phaser.Scene {
     }
 
     createPlatforms() {
-        for(let i = 0; i < 20; i++) {
-            this.platforms.create(64*i+32, FILESIZE.y-32, 'tiles', 0);
+        for (let i = 0; i < 20; i++) {
+            this.platforms.create(64 * i + 32, FILESIZE.y - 32, 'tiles', 0);
         }
     }
 
