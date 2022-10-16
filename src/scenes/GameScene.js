@@ -200,6 +200,7 @@ export default class GameScene extends Phaser.Scene {
             }
         } else {
             this.tintEverything();
+            this.text = this.add.text(400, 300, "PAUSED(?) ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
 
         }
         this.currentInput = this.getActiveKeys();
