@@ -42,8 +42,20 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        this.button = this.physics.add.staticSprite(400,450, 'button');
+        this.button = this.physics.add.staticSprite(400, 450, 'button');
         this.door = this.physics.add.staticSprite(100, 450, 'door');
+
+        //add ball
+        this.ball = this.physics.add.group({
+            key: 'ball',
+            setXY: { x: 12, y: 0 }
+        });
+        //collider for ball
+        this.physics.add.collider(this.ball, this.platforms);
+
+
+
+
         //player = this.physics.add.sprite(100, 450, 'dude');
 
         this.player = new Player({
@@ -70,7 +82,7 @@ export default class GameScene extends Phaser.Scene {
         this.createPlatforms();
 
         this.dynamicWorldOjects = this.physics.add.group();
-        
+
         // If paused or not.
         this.paused = false;
 
