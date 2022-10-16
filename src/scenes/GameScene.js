@@ -41,7 +41,7 @@ export default class GameScene extends Phaser.Scene {
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
 
-        this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
+        this.sky=this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
 
 
@@ -86,7 +86,7 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.ball, this.platforms);
         this.ball.setBounce(1).setScale(2);
         this.ball.setCollideWorldBounds(true);
-        this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
+        this.ball.setVelocity(Phaser.Math.Between(300, 500), Phaser.Math.Between(300, 500));
 
         //collider for ball and player
         //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
@@ -129,7 +129,7 @@ export default class GameScene extends Phaser.Scene {
     gameWin() {
         this.physics.pause();
         this.pauseGame();
-        this.player.setTint('lightgreen');
+        this.player.setTint('0x00ff00');
 
         this.gameWinText = this.add.text(300, 300, "GOOD GAME OVER!!!", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
         console.log("game over");
@@ -191,13 +191,15 @@ export default class GameScene extends Phaser.Scene {
 
     update() {
         // Get which keys are pressed and just pressed.
-        if (!this.paused) {
-            if (!this.checkOverlap(this.player, this.button)) {
+        if(!this.paused) {
+            this.untintEverything();
+            if(!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
                 // this.door.anims.play('closing', true);
                 this.button.anims.play('buttonUp', true);
             }
         } else {
+            this.tintEverything();
 
         }
         this.currentInput = this.getActiveKeys();
@@ -205,8 +207,27 @@ export default class GameScene extends Phaser.Scene {
         this.playDoor();
     }
 
-    playDoor() {
-        if (this.doorOpen) {
+    tintEverything()
+    {
+        this.sky.setTint(0x808080);
+        this.button.setTint(0x808080);
+        this.ball.setTint(0x808080);
+        this.realDoor.setTint(0x808080);
+        this.platforms.setTint(0x808080);
+    }
+
+    untintEverything()
+    {
+        this.sky.setTint(0xffffff);
+        this.button.setTint(0xffffff);
+        this.ball.setTint(0xffffff);
+        this.realDoor.setTint(0xffffff);
+        this.platforms.setTint(0xffffff);
+    }
+
+    playDoor(){
+        if(this.doorOpen)
+        {
             // this.door.anims.play('open', true);
             this.realDoor.setTexture('doorOpen');
         }
