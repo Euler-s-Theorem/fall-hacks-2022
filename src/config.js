@@ -1,7 +1,9 @@
+import { FILESIZE } from "./constants/fileSize.js"
+
 export default {
     type: Phaser.AUTO,
-    width: 1200,
-    height: 700,
+    width: FILESIZE.x,
+    height: FILESIZE.y,
     physics: {
         default: 'arcade',
         arcade: {
