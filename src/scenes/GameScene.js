@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
         this.button = this.physics.add.staticSprite(FILESIZE.x / 2, 3 / 5 * FILESIZE.y + 64, 'button', 0);
 
         this.button.setScale(4);
-        this.door = this.physics.add.staticSprite(100, 450, 'door');
+        // this.door = this.physics.add.staticSprite(100, 450, 'door');
 
         //player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -108,8 +108,6 @@ export default class GameScene extends Phaser.Scene {
         this.doorOpen = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
-
-
     }
 
     checkOverlap(spriteA, spriteB) {
@@ -152,10 +150,12 @@ export default class GameScene extends Phaser.Scene {
 
     pauseGame() {
         this.paused = true;
+        // Overlay
     }
 
     unpauseGame() {
         this.paused = false;
+        // Remove overlay
     }
 
     gameOver() {
@@ -172,23 +172,27 @@ export default class GameScene extends Phaser.Scene {
         if (!this.paused) {
             if (!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
-                this.door.anims.play('closing', true);
+                // this.door.anims.play('closing', true);
                 this.button.anims.play('buttonUp', true);
             }
         } else {
-
+            
         }
         this.currentInput = this.getActiveKeys();
         this.player.update(this.currentInput);
         this.playDoor();
     }
 
-    playDoor() {
-        if (this.doorOpen) {
-            this.door.anims.play('open', true);
+    playDoor(){
+        if(this.doorOpen)
+        {
+            // this.door.anims.play('open', true);
+            this.realDoor.setTexture('doorOpen');
         }
-        else {
-            this.door.anims.play('closed', true);
+        else
+        {
+            // this.door.anims.play('closed', true);
+            this.realDoor.setTexture('doorClosed');
         }
     }
 
