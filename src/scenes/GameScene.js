@@ -190,11 +190,8 @@ export default class GameScene extends Phaser.Scene {
                 this.button.anims.play('buttonUp', true);
             }
         } else {
-<<<<<<< HEAD
-=======
             this.tintEverything();
             this.text = this.add.text(400, 300, "PAUSED(?) ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
->>>>>>> 5422ab5bd81c684941e6c13b0d327941c5877e1d
 
         }
         this.currentInput = this.getActiveKeys();
