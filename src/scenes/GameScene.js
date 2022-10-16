@@ -142,10 +142,12 @@ export default class GameScene extends Phaser.Scene {
 
     pauseGame() {
         this.paused = true;
+        // Overlay
     }
 
     unpauseGame() {
         this.paused = false;
+        // Remove overlay
     }
 
     gameOver() {
@@ -161,7 +163,7 @@ export default class GameScene extends Phaser.Scene {
                 this.button.anims.play('buttonUp', true);
             }
         } else {
-
+            
         }
         this.currentInput = this.getActiveKeys();
         this.player.update(this.currentInput);
