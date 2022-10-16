@@ -38,13 +38,26 @@ export default class GameScene extends Phaser.Scene {
             four: [this.keys.four],
         }
 
+        this.worldWidth = FILESIZE.x * 3 / 2;
+        this.worldHeight = FILESIZE.y;
+
+        this.physics.world.bounds.x = 0;
+        this.physics.world.bounds.y = 0;
+        this.physics.world.bounds.width = this.worldWidth;
+        this.physics.world.bounds.height = this.worldHeight;
+
         // The types of key input the game needs.
         this.keyInputTypes = ['isDown', 'justDown'];
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
+        this.add.image(FILESIZE.x, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-
-
+        this.doorLocation = {
+            x: FILESIZE.x * 3 / 4,
+            y: 3 / 5 * FILESIZE.y
+        };
+        this.doors = this.physics.add.staticGroup();
+        this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
 
         this.button = this.physics.add.staticSprite(FILESIZE.x / 2, 3 / 5 * FILESIZE.y + 64, 'button', 0);
 
@@ -56,8 +69,8 @@ export default class GameScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             position: {
-                x: 200,
-                y: 200
+                x: 64 * 2,
+                y: FILESIZE.y - 64 * 2
             },
             texture: 'playerGreen',
             frame: 0
@@ -90,18 +103,15 @@ export default class GameScene extends Phaser.Scene {
 
         //collider for ball and player
         //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
-        this.doorLocation = {
-            x: FILESIZE.x * 3 / 4,
-            y: 3 / 5 * FILESIZE.y
-        };
-
-        this.doors = this.physics.add.staticGroup();
-        this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
         this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
 
         // If paused or not.
         this.paused = false;
         this.doorOpen = false;
+
+        // Set bounds so the camera won't go outside the game world.
+        this.cameras.main.setBounds(0, 0, this.worldWidth, this.worldHeight);
+        this.cameras.main.startFollow(this.player);
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
     }
@@ -131,18 +141,27 @@ export default class GameScene extends Phaser.Scene {
 
 
     createPlatforms() {
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 40; i++) {
             this.platforms.create(64 * i + 32, FILESIZE.y - 32, 'tiles', 0);
         }
-        this.createNPlatforms(3, FILESIZE.x / 2, 3 / 4 * FILESIZE.y);
+        this.createNPlatformsX(3, FILESIZE.x / 2, 3 / 4 * FILESIZE.y);
 
-        this.createNPlatforms(2, FILESIZE.x * 3 / 4, 3 / 5 * FILESIZE.y);  // Button platform
-        this.createNPlatforms(2, FILESIZE.x * 1 / 4, 3 / 5 * FILESIZE.y);
+        this.createNPlatformsX(2, FILESIZE.x * 3 / 4, 3 / 5 * FILESIZE.y);  // Button platform
+        this.createNPlatformsX(2, FILESIZE.x * 1 / 4, 3 / 5 * FILESIZE.y);  // Door platform?
+        this.createNPlatformsX(4, FILESIZE.x, 2 / 5 * FILESIZE.y);
+
+        this.createNPlatformsY(8, FILESIZE.x + 62 * 5, FILESIZE.y / 2 - 64);
     }
 
-    createNPlatforms(n, centerX, centerY) {
+    createNPlatformsX(n, centerX, centerY) {
         for (let i = -1 * (n / 2); i < n / 2; i++) {
             this.platforms.create(centerX + i * 64 + 32, centerY, 'tiles', 0);
+        }
+    }
+
+    createNPlatformsY(n, centerX, centerY) {
+        for (let i = -1 * (n / 2); i < n / 2; i++) {
+            this.platforms.create(centerX, centerY + i * 64 + 32, 'tiles', 0);
         }
     }
 
@@ -157,7 +176,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     gameOver() {
-        this.text = this.add.text(400, 300, "GAME OVER!!! ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
+        this.text = this.add.text(400, 300, "Bad Game Over ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
         console.log("game over");
     }
 
