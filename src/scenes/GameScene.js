@@ -94,6 +94,12 @@ export default class GameScene extends Phaser.Scene {
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
     }
 
+    checkOverlap(spriteA, spriteB) {
+	    var boundsA = spriteA.getBounds();
+	    var boundsB = spriteB.getBounds();
+	    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
+	}
+
     pressButton() {
         if (!this.doorOpen) {
             this.doorOpen = true;
@@ -109,19 +115,11 @@ export default class GameScene extends Phaser.Scene {
     }
 
     pauseGame() {
-        // Stop timer
-
-        // Stop dynamic world objects
-
-        // Overlay tint
+        this.paused = true;
     }
 
     unpauseGame() {
-        // Resume timer
-
-        // Resume dynamic world objects
-
-        // Remove tint
+        this.paused = false;
     }
 
     gameOver() {
@@ -130,8 +128,15 @@ export default class GameScene extends Phaser.Scene {
 
     update() {
         // Get which keys are pressed and just pressed.
+        if(!this.paused) {
+            if(!this.checkOverlap(this.player, this.button)) {
+                this.doorOpen = false;
+                this.door.anims.play('closing', true);
+            }
+        } else {
+
+        }
         this.currentInput = this.getActiveKeys();
-        this.door.anims.play('closing', true);
         this.player.update(this.currentInput);
     }
 
