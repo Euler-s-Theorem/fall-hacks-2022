@@ -150,11 +150,15 @@ export default class GameScene extends Phaser.Scene {
 
     pauseGame() {
         this.paused = true;
+        // Stop Ball
+
         // Overlay
     }
 
     unpauseGame() {
         this.paused = false;
+        // Resume Ball
+        
         // Remove overlay
     }
 
