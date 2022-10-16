@@ -80,7 +80,7 @@ export default class GameScene extends Phaser.Scene {
         this.ball = this.dynamicWorldOjects.create(800, 16, 'ball');
         //made ball bounce against platforms and other surfaces
         this.physics.add.collider(this.ball, this.platforms);
-        this.ball.setBounce(1).setScale(1);
+        this.ball.setBounce(1).setScale(2);
         this.ball.setCollideWorldBounds(true);
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
@@ -95,11 +95,11 @@ export default class GameScene extends Phaser.Scene {
     }
 
     checkOverlap(spriteA, spriteB) {
-	    var boundsA = spriteA.getBounds();
-	    var boundsB = spriteB.getBounds();
-	    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
-	}
-    
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+        return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
+    }
+
     playerHitsBall() {
         this.physics.pause();
 
@@ -147,8 +147,8 @@ export default class GameScene extends Phaser.Scene {
 
     update() {
         // Get which keys are pressed and just pressed.
-        if(!this.paused) {
-            if(!this.checkOverlap(this.player, this.button)) {
+        if (!this.paused) {
+            if (!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
                 this.door.anims.play('closing', true);
             }
