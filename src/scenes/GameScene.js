@@ -99,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
 	    var boundsB = spriteB.getBounds();
 	    return Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB);
 	}
-    
+
     playerHitsBall() {
         this.physics.pause();
 
@@ -151,6 +151,7 @@ export default class GameScene extends Phaser.Scene {
             if(!this.checkOverlap(this.player, this.button)) {
                 this.doorOpen = false;
                 this.door.anims.play('closing', true);
+                this.button.anims.play('buttonUp', true);
             }
         } else {
 
