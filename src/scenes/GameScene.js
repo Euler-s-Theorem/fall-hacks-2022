@@ -100,7 +100,7 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.ball, this.gameOver, null, this);
 
         //collision for player and door
-        this.physics.add.collider(this.player, this.realDoor, this.playerHitsDoor, null, this);
+        this.physics.add.overlap(this.player, this.realDoor, this.playerHitsDoor, null, this);
 
 
         // If paused or not.
