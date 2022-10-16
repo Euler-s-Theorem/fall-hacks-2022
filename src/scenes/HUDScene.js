@@ -15,8 +15,10 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {
-
-        let remainingSeconds = this.gameScene.timer.getRemainingSeconds();
-        this.text.text = 'Time Left: ' + remainingSeconds.toFixed(2);
+        if(!this.gameScene.paused) {
+            let remainingSeconds = this.gameScene.timer.getRemainingSeconds();
+            this.text.text = 'Time Left: ' + remainingSeconds.toFixed(2);
+        }
+        
     }
 }
