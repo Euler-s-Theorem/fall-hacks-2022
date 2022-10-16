@@ -163,6 +163,10 @@ export default class GameScene extends Phaser.Scene {
     pauseGame() {
         this.paused = true;
         // Stop Ball
+        this.storeBallVelX = this.ball.body.velocity.x;
+        this.storeBallVelY = this.ball.body.velocity.y;
+        this.ball.body.allowGravity = false;
+        this.ball.setVelocity(0, 0)
 
         // Overlay
     }
@@ -170,7 +174,9 @@ export default class GameScene extends Phaser.Scene {
     unpauseGame() {
         this.paused = false;
         // Resume Ball
-        
+        this.ball.body.allowGravity = true;
+        this.ball.setVelocity(this.storeBallVelX, this.storeBallVelY)
+
         // Remove overlay
     }
 
