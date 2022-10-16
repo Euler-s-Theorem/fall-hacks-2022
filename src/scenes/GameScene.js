@@ -43,7 +43,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        this.button = this.physics.add.staticSprite(400,450, 'button');
+        this.button = this.physics.add.staticSprite(400,450, 'button', 0);
+        this.button.setScale(4);
         this.door = this.physics.add.staticSprite(100, 450, 'door');
         //player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -71,11 +72,23 @@ export default class GameScene extends Phaser.Scene {
         this.createPlatforms();
 
         this.dynamicWorldOjects = this.physics.add.group();
+
+        this.physics.add.overlap(this.player, this.button, this.pressButton, null, this);
+
         
         // If paused or not.
         this.paused = false;
+        this.doorOpen = false;
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
+    }
+
+    pressButton() {
+        if (!this.doorOpen) {
+            this.doorOpen = true;
+            this.button.anims.play('buttonDown', true);
+            console.log("PRESSED BUTTON");
+        }
     }
 
     createPlatforms() {
