@@ -190,7 +190,7 @@ export default class GameScene extends Phaser.Scene {
         this.sky.setTint(0x808080);
         this.button.setTint(0x808080);
         this.ball.setTint(0x808080);
-        this.door.setTint(0x808080);
+        this.realDoor.setTint(0x808080);
         this.platforms.setTint(0x808080);
     }
 
@@ -199,7 +199,7 @@ export default class GameScene extends Phaser.Scene {
         this.sky.setTint(0xffffff);
         this.button.setTint(0xffffff);
         this.ball.setTint(0xffffff);
-        this.door.setTint(0xffffff);
+        this.realDoor.setTint(0xffffff);
         this.platforms.setTint(0xffffff);
     }
 
