@@ -49,7 +49,7 @@ export default class GameScene extends Phaser.Scene {
         this.button = this.physics.add.staticSprite(FILESIZE.x / 2, 3 / 5 * FILESIZE.y + 64, 'button', 0);
 
         this.button.setScale(4);
-        this.door = this.physics.add.staticSprite(100, 450, 'door');
+        // this.door = this.physics.add.staticSprite(100, 450, 'door');
 
         //player = this.physics.add.sprite(100, 450, 'dude');
 
