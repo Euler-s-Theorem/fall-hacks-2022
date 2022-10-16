@@ -14,3 +14,4 @@ Our project can be found [here on this website link](https://euler-s-theorem.git
 ## Assets Credits
 
 - Player images: https://arks.itch.io/dino-characters
+- Stone tiles: https://www.indiedb.com/games/chesslike-adventures-in-chess/images/tile-themes-sprite-sheet

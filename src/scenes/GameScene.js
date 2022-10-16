@@ -43,9 +43,10 @@ export default class GameScene extends Phaser.Scene {
 
         this.add.image(0, 0, 'sky').setOrigin(0, 0).setScale(2);
 
-        this.button = this.physics.add.staticSprite(400,450, 'button', 0);
+        this.button = this.physics.add.staticSprite(400, 450, 'button', 0);
         this.button.setScale(4);
         this.door = this.physics.add.staticSprite(100, 450, 'door');
+
         //player = this.physics.add.sprite(100, 450, 'dude');
 
         this.player = new Player({
@@ -75,7 +76,14 @@ export default class GameScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.player, this.button, this.pressButton, null, this);
 
-        
+        //add ball
+        this.ball = this.physics.add.group({
+            key: 'ball',
+            setXY: { x: 12, y: 0 }
+        });
+        //collider for ball
+        this.physics.add.collider(this.ball, this.platforms);
+
         // If paused or not.
         this.paused = false;
         this.doorOpen = false;
