@@ -89,6 +89,14 @@ export default class GameScene extends Phaser.Scene {
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
         //collider for ball and player
+        //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
+        this.doorLocation = {
+            x: FILESIZE.x * 3 / 4,
+            y: 3 / 5 * FILESIZE.y
+        };
+
+        this.doors = this.physics.add.staticGroup();
+        this.realDoor = this.doors.create(this.doorLocation.x, this.doorLocation.y - 102, 'doorOpen');
         this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
 
         // If paused or not.
@@ -97,7 +105,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.scene.launch(SCENE_KEYS.hud, { GameScene: this });
 
-       
+
     }
 
     checkOverlap(spriteA, spriteB) {
@@ -151,6 +159,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     gameOver() {
+        this.text = this.add.text(400, 300, "GAME OVER!!! ", { fontSize: '70px', fill: 'white', fontWeight: 'bold' });
         console.log("game over");
     }
 
@@ -170,13 +179,11 @@ export default class GameScene extends Phaser.Scene {
         this.playDoor();
     }
 
-    playDoor(){
-        if(this.doorOpen)
-        {
+    playDoor() {
+        if (this.doorOpen) {
             this.door.anims.play('open', true);
         }
-        else
-        {
+        else {
             this.door.anims.play('closed', true);
         }
     }
