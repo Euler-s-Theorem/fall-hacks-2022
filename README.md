@@ -2,6 +2,8 @@
 
 ## Build and Run Instructions
 
+Use the VS code live server extensions on the HTML file.
+
 Our project can be found [here on this website link](https://euler-s-theorem.github.io/fall-hacks-2022/).
 
 ## Team Member Names
