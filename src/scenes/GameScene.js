@@ -77,15 +77,15 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.button, this.pressButton, null, this);
 
         //make a ball group and then a ball 
-        this.ball = this.dynamicWorldOjects.create(10, 16, 'ball');
+        this.ball = this.dynamicWorldOjects.create(800, 16, 'ball');
         //made ball bounce against platforms and other surfaces
         this.physics.add.collider(this.ball, this.platforms);
-        this.ball.setBounce(1).setScale(3);
+        this.ball.setBounce(1).setScale(1);
         this.ball.setCollideWorldBounds(true);
         this.ball.setVelocity(Phaser.Math.Between(150, 200), Phaser.Math.Between(-200, 200));
 
         //collider for ball and player
-        //this.physics.add.collider(this.player, this.ball, playerHitsBall, null, this);
+        this.physics.add.collider(this.player, this.ball, this.playerHitsBall, null, this);
 
         // If paused or not.
         this.paused = false;
@@ -100,8 +100,7 @@ export default class GameScene extends Phaser.Scene {
         this.player.setTint(0xff0000);
 
         //this.player.anims.play('turn');
-
-        gameOver = true;
+        this.gameOver();
     }
 
     pressButton() {
